@@ -2,26 +2,27 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthUsersModule } from './auth-users/auth-users.module';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthUsersService } from './auth-users/auth-users.service';
 
 const DEFAULT_ADMIN = {
   email: 'admin@gmail.com',
   password: 'password'
 }
 
-const authenticate = async (email: string, password: string) =>{
-  if(email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password){
-    return Promise.resolve(DEFAULT_ADMIN);
-  }
-  return null;
+interface Users { 
+  username:string,
+  password:string
 }
 
 @Module({
-  imports: [AuthUsersModule,
-
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/psvc'),
-
+  imports: [
+    ConfigModule.forRoot({
+        envFilePath:'.env',
+        isGlobal:true
+      }),
+      MongooseModule.forRoot(process.env.DB),
+    AuthUsersModule,
     import('@adminjs/nestjs')
     .then(({AdminModule}) =>
       AdminModule.createAdminAsync({
@@ -31,7 +32,14 @@ const authenticate = async (email: string, password: string) =>{
             resources: []
           },
           auth: {
-            authenticate,
+            authenticate: async (email: string, password: string, authModule:AuthUsersModule) =>{
+              
+              const user:Users = await authModule.authUsersService.loginUser(email, password)
+              if(email === user.username && password === user.password){
+                return Promise.resolve({email,password});
+              }
+              return null;
+            },
             cookieName:'adminjs',
             cookiePassword:'secret'
           },
@@ -47,4 +55,5 @@ const authenticate = async (email: string, password: string) =>{
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+}
