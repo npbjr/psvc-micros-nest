@@ -4,6 +4,10 @@ import { HydratedDocument } from "mongoose";
 
 export type UserDocument = Users & Document;
 
+export enum Role {
+    ADMIN = 'admin',
+    USER = 'user'
+}
 
 @Schema()
 export class Users {
@@ -13,8 +17,8 @@ export class Users {
     @Prop()
     password: string;
 
-    @Prop()
-    role: string[];
+    @Prop({ type: String, enum: Role, default: Role.USER })
+    role: Role;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(Users);
