@@ -82,18 +82,17 @@ export class AuthUsersService implements OnModuleInit {
         return await this.usersModel.find().exec();
     }
     async getUser(id:string): Promise<UserDocument> {
-        return await this.usersModel.findById({_id:id}).exec();
+        return await this.usersModel.findById(id).exec();
     }
 
     async delete(id:string): Promise<any>{
         console.error("DELETING:"+id)
-        return await this.usersModel.deleteOne({_id:id}).exec();
+        return await this.usersModel.findByIdAndDelete(id).exec();
     }
 
     async update(id:string, userData:any): Promise<any>{
         console.error("updating:"+id)
-        const _id = id
-        const user = await this.usersModel.findByIdAndUpdate(_id,userData ).exec();
+        const user = await this.usersModel.findByIdAndUpdate(id,userData ).exec();
         console.error("done updating user:"+JSON.stringify(user))
         return user
     }
