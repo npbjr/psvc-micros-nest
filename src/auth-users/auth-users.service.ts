@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit, UnauthorizedException, Logger } from '@nestjs/common';
+import { Injectable, OnModuleInit, UnauthorizedException, Logger, ConflictException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -41,7 +41,7 @@ export class AuthUsersService implements OnModuleInit {
         if(user == null){
             return false
         }
-        const isValidPassword = await bcrypt.compare(password.trim(), user.password)
+        const isValidPassword = await bcrypt.compareSync(password.trim(), user.password)
         console.error("CHECK THIS USER ::", user, password.trim(), isValidPassword)
         if (user && isValidPassword) {
             this.logger.debug('USER FOUND', JSON.stringify(user));
@@ -52,21 +52,25 @@ export class AuthUsersService implements OnModuleInit {
         return false;
     }
 
-    async create(userDto: UsersDto): Promise<UserDocument> {
+    async create(userDto: UsersDto): Promise<any> {
+        const user = await this.usersModel.findOne({ email:userDto.email }).exec();
+        if(user){
+            return {message:"Email Already in use", statusCode:409}
+        }
         const hashedPassword = await bcrypt.hash(userDto.password.trim(), 10);
         this.logger.debug('HASHED PASSWORD', hashedPassword);
-
+        
         const newUser = new this.usersModel({
             email: userDto.email,
             password: hashedPassword,
-            role: userDto.role,
+            role: userDto.role
         });
 
         return await newUser.save();
     }
 
     async login(email: string, password: string): Promise<{ accessToken: string; statusCode: number }> {
-        const user = await this.validateUser(email, password);
+        const user = await this.validateUser(email, password);  
         if (!user) {
             throw new UnauthorizedException();
         }

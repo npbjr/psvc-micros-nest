@@ -9,7 +9,7 @@ export enum Role {
 
 @Schema()
 export class Users {
-    @Prop()
+    @Prop({type: String, unique:true})
     email: string;
 
     @Prop()
