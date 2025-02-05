@@ -20,8 +20,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@adminjs/express": "^6.1.1",
-    "@adminjs/nestjs": "^6.1.0",
     "@grpc/grpc-js": "^1.12.5",
     "@grpc/proto-loader": "^0.7.13",
     "@nestjs/common": "^10.0.0",
@@ -32,11 +30,8 @@
     "@nestjs/mongoose": "^10.1.0",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^10.0.0",
-    "adminjs": "^7.8.15",
     "bcrypt": "^5.1.1",
     "config": "^3.3.12",
-    "express-formidable": "^1.2.0",
-    "express-session": "^1.18.1",
     "mongoose": "^8.9.5",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
@@ -47,7 +42,6 @@
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
-    "@types/express": "^5.0.0",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
     "@types/supertest": "^6.0.0",

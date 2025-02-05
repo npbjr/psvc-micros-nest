@@ -15,7 +15,24 @@ export class Comments {
     @Prop()
     pageId: string
 
+    @Prop()
+    likes: string
+
+    @Prop()
+    dislikes:string
+
+
+    @Prop({ default: Date.now })
+    dateCreated:Date
+
+    @Prop({ default: Date.now })
+    dateModified:Date
 
 }
 
 export const CommentsSchema = SchemaFactory.createForClass(Comments)
+
+CommentsSchema.pre('save', function (next) {
+    this.dateModified = new Date();
+    next();
+  });
