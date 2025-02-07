@@ -6,12 +6,8 @@ import { Pages, PagesSchema } from './pages.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from 'src/auth-users/constants';
 @Module({
-  imports:[ MongooseModule.forFeature([{name: Pages.name, schema:PagesSchema}]), JwtModule.register({
-        global: true,
-        secret: jwtConstants.secret,
-        signOptions: { expiresIn: '60s' },
-      }),],
-      providers: [PagesService],
+  imports:[MongooseModule.forFeature([{name:Pages.name, schema:PagesSchema}])],
+  providers: [PagesService],
   controllers: [PagesController],
   
   exports:[PagesService]

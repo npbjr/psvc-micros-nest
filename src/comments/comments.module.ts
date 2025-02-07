@@ -6,12 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Comments, CommentsSchema } from './comments.schema';
 import { JwtModule } from '@nestjs/jwt';
 @Module({
-  imports:[ MongooseModule.forFeature([{name: Comments.name, schema:CommentsSchema}]), JwtModule.register({
-      global: true,
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
-    }),],
+    imports:[MongooseModule.forFeature([{name:Comments.name, schema:CommentsSchema}])],
     providers:[CommentsService],
-  controllers: [CommentsController]
+    controllers: [CommentsController]
 })
 export class CommentsModule {}
