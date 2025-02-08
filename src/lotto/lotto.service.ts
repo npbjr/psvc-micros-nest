@@ -11,7 +11,21 @@ export class LottoService {
     ){}
 
     async findAll():Promise<any>{
-        return await this.lottoResult.find()
-    }
+    
+
+
+    const lottoResults = await this.lottoResult.find({
+        relations: ['lottoType', 'schedule'], 
+      });
+  
+      return lottoResults.map(result => ({
+        id: result.id,
+        numbers: result.numbers,
+        drawdate: result.drawdate,
+        lottoType: result.lottoType?.name, 
+        schedule: result.schedule?.time,
+      }));
+        }
+    
 
 }

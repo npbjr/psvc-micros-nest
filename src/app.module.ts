@@ -16,6 +16,7 @@ import { Comments, CommentsSchema } from './comments/comments.schema';
 import { LottoModule } from './lotto/lotto.module';
 import { LottoResult } from './lotto/lotto.results.schema';
 import { DrawSchedule } from './lotto/lotto.drawschedule.schema';
+import { LottoType } from './lotto/lotto.lottotype.schema';
 
 @Module({
   imports: [
@@ -35,7 +36,7 @@ import { DrawSchedule } from './lotto/lotto.drawschedule.schema';
       port: 5432,
       password: 'admin',
       username: 'postgres',
-      entities: [LottoResult, DrawSchedule],
+      entities: [LottoResult, DrawSchedule, LottoType],
       database: 'psvc',
       synchronize: true,
       logging: true,
