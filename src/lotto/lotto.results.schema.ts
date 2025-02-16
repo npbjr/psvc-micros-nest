@@ -1,22 +1,25 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { DrawSchedule } from './lotto.drawschedule.schema';
-import { LottoType } from './lotto.lottotype.schema';
+
+import { GameType } from './lotto.gametype.schema';
 
 @Entity()
 export class LottoResult {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({name:'numbers'})
-  numbers: string;
+  @Column({name:'combinations'})
+  combinations: string;
 
-  @Column({name:'drawdate'})
-  drawdate: string; 
+  @Column({name:'drawDate'})
+  drawDate: string; 
 
-  @ManyToOne(() => DrawSchedule, (schedule) => schedule.lottoResults)
-  schedule: DrawSchedule;
+  @Column({name:'jackpot'})
+  jackpot: string; 
 
-  @ManyToOne(() => LottoType, (lottoType) => lottoType.lottoResults)
-  lottoType: LottoType;
+  @Column({name:"winners"})
+  winners: string
+
+  @ManyToOne(() => GameType, (gameType) => gameType.lottoResults)
+  gameType: GameType;
 
 }

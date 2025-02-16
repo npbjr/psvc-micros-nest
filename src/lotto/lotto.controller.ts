@@ -9,4 +9,17 @@ export class LottoController {
         console.error("any", searchText)
         return await this.lottoService.findAll(searchText)
     }
+    @Get('scrape')
+    async scrape(@Query('url') url: string): Promise<any> {
+        console.error("any", url)
+        return await this.lottoService.scrape(url)
+    }
+
+    @Get('searchAI')
+    async searchAI(@Query('searchText') searchText: string): Promise<any> {
+        console.error("any", searchText)
+        return await this.lottoService.searchAI(searchText)
+    }
+
+
 }

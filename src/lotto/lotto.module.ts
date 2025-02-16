@@ -3,11 +3,10 @@ import { LottoController } from './lotto.controller';
 import { LottoService } from './lotto.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LottoResult } from './lotto.results.schema';
-import { DrawSchedule } from './lotto.drawschedule.schema';
-import { LottoType } from './lotto.lottotype.schema';
+import { GameType } from './lotto.gametype.schema';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([LottoResult,DrawSchedule, LottoType])],
+  imports: [TypeOrmModule.forFeature([LottoResult, GameType])],
   controllers: [LottoController],
   providers: [LottoService]
 })

@@ -1,10 +1,4 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
-
-export class LottoResultEntries1738989820733 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
-            INSERT INTO lotto_result ("gameTypeId", combinations, "drawDate", jackpot, winners) VALUES 
+INSERT INTO lotto_result ("gameTypeId", combinations, "drawDate", jackpot, winners) VALUES 
             ((SELECT id FROM game_type WHERE name = 'Ultra Lotto 6/58'), '58-07-40-09-56-29', '2024-01-02', 49500000, 0),
             ((SELECT id FROM game_type WHERE name = 'Ultra Lotto 6/58'), '46-54-05-35-04-13', '2024-01-05', 49500000, 0),
             ((SELECT id FROM game_type WHERE name = 'Ultra Lotto 6/58'), '37-28-08-18-40-38', '2024-01-07', 49500000, 0),
@@ -160,12 +154,3 @@ export class LottoResultEntries1738989820733 implements MigrationInterface {
             ((SELECT id FROM game_type WHERE name = 'Ultra Lotto 6/58'), '55-21-02-19-28-15', '2024-12-27', 270763112.8, 0),
             ((SELECT id FROM game_type WHERE name = 'Ultra Lotto 6/58'), '37-45-05-03-30-56', '2024-12-29', 281445485.6, 0),
             ((SELECT id FROM game_type WHERE name = 'Ultra Lotto 6/58'), '11-40-20-12-19-01', '2024-12-31', 290664568, 0);
-
-            `);
-    
-    }
-
-    public async down(queryRunner: QueryRunner): Promise<void> {
-    }
-
-}

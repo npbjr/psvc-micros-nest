@@ -3,13 +3,13 @@ import { LottoResult } from "./lotto.results.schema";
 
 
 @Entity()
-export class LottoType {
+export class GameType {
     @PrimaryGeneratedColumn()
     id:number;
 
     @Column()
     name:string
 
-    @OneToMany(()=> LottoResult, (lottoResult)=>lottoResult.lottoType)
+    @OneToMany(()=> LottoResult, (lottoResult)=>lottoResult.gameType)
     lottoResults:LottoResult[]
 }
