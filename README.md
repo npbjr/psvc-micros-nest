@@ -10,7 +10,7 @@
 - **nestjs**
 - **mongodb**
 - **postgre server(pg admin or any pg server)**
-- ** create .env file with ff information **
+- **create ```.env``` file with ff information**
   ```bash
       DB=mongodb://127.0.0.1:27017/psvc
       DEFAULT_APP_ADMIN_USER=admin
